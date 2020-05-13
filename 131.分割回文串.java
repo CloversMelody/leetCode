@@ -6,33 +6,35 @@
 
 // @lc code=start
 class Solution {
+    private int len;
+    private String s;
+
     public List<List<String>> partition(String s) {
         List<List<String>> ans = new ArrayList<>();
-        if(s.length()==0) return ans;
+        this.s = s;
+        len = s.length();
+        if(len==0) return ans;
         List<String> tmp = new ArrayList<>();
-        backtrace(s,0,0,ans,tmp);
+        backtrace(0,ans,tmp);
         return ans;
     }
 
-    private void backtrace(String s,int start,int end,List<List<String>> ans,List<String> tmp){
-        if(end==s.length()){
-            ans.add(tmp);
+    private void backtrace(int start,List<List<String>> ans,List<String> tmp){
+        if(start==s.length()){
+            ans.add(new ArrayList<>(tmp));
             return;
         }
         for(int i=start;i<s.length();i++){
-            for(int j=i;j<s.length();j++){
-                String sub = s.substring(i,j);
-                if(isPalindrome(sub)){
-                    tmp.add(sub);
-                    backtrace(s,j,j,ans,tmp);
-                    tmp.remove(tmp.size()-1);
-                }
+            if(isPalindrome(start,i)){
+                tmp.add(s.substring(start,i+1));
+                backtrace(i+1,ans,tmp);
+                tmp.remove(tmp.size()-1);
             }
         }
     }
 
-    private boolean isPalindrome(String s){
-        for(int i=0,j=s.length()-1;i<j;i++,j--){
+    private boolean isPalindrome(int left,int right){
+        for(int i=left,j=right;i<=j;i++,j--){
             if(s.charAt(i)!=s.charAt(j))
                 return false;
         }
