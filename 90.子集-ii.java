@@ -13,7 +13,7 @@ class Solution {
         Arrays.sort(nums);
         boolean[] visit = new boolean[nums.length];
         backtrace(nums,combine,tmp,visit,0);
-        return combine;                                                                                                                                                                                                                                                                   
+        return combine;                                                                
     }
 
     private void backtrace(int[] nums, List<List<Integer>> combine, List<Integer> tmp, boolean[] visit, int start){
