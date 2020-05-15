@@ -7,18 +7,13 @@
 // @lc code=start
 class Solution {
     public int subarraySum(int[] nums, int k) {
-        int[] dp = new int[nums.length];
-        dp[0] = nums[0];
-        for(int i=1;i<nums.length;i++){
-            dp[i] = dp[i-1]+nums[i];
-        }
-        int cnt = 0;
+        int cnt = 0, pre = 0;
+        Map<Integer,Integer> map = new HashMap<>();
+        map.put(0,1);
         for(int i=0;i<nums.length;i++){
-            if(dp[i]==k) cnt++;
-            for(int j=i+1;j<nums.length;j++){
-                if(dp[j]-dp[i]==k)
-                    cnt++;
-            }
+            pre += nums[i];
+            cnt += map.getOrDefault(pre-k,0);
+            map.put(pre,map.getOrDefault(pre,0)+1);
         }
         return cnt;
     }
