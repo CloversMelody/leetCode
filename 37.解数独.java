@@ -6,20 +6,18 @@
 
 // @lc code=start
 class Solution {
+    private char[][] board = null;
+
     public void solveSudoku(char[][] board) {
-        for(int i=0;i<9;i++){
-            for(int j=0;j<9;j++){
-                if(board[i][j]=='.'){
-                    for(int rel=0;rel<9;rel++){
-                        board[i][j] = (char)(48+rel);
-                        if(checkSudoku(board,i,j))
-                            solveSudoku(board);
-                        else
-                            board[i][j] = '.';
-                    }
-                }
-            }
-        }
+        this.board = board;
+        backtrace(0);
+    }
+
+    private boolean backtrace(int index){
+        int i = index/9;
+        int j = index%9;
+        if(board[i][j] == '.')
+            back
     }
 
     private boolean checkSudoku(char[][] board,int i,int j){
